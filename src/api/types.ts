@@ -20,6 +20,13 @@ export interface Meta {
   health_kinds: Choice[]
   routes: Choice[]
   purposes: Choice[]
+  medicine_kinds: Choice[]
+  feed_phases: Choice[]
+  packagings: Choice[]
+  partner_kinds: Choice[]
+  category_sheets: Choice[]
+  review_statuses: Choice[]
+  report_reasons: Choice[]
 }
 
 export interface StaffUser {
@@ -163,6 +170,97 @@ export interface Step extends Reference {
   age_day: number
   kind: string
   route: string | null
+}
+
+/** Type de fiche d'une catégorie : il dit quels champs ont ses produits. */
+export type Sheet = 'medicament' | 'aliment' | 'sujet' | 'simple'
+
+/** Catégorie de l'annuaire et du catalogue. */
+export interface Category extends Reference {
+  emoji: string
+  color: string
+  sheet: Sheet
+  verification_required: boolean
+}
+
+/** Champs d'une fiche (standard ou produit) ; ceux des autres fiches
+ *  restent vides. */
+export interface SheetRow extends Reference {
+  category: string
+  sheet: Sheet
+  description: string
+  species: string[]
+  unit: string
+  medicine_kind: string | null
+  withdrawal_days: number | null
+  phase: string | null
+  strain: string
+  purpose: string | null
+  age_days: number | null
+  vaccines: string
+}
+
+/** Standard de la plateforme, sans produit ni prix. */
+export type Standard = SheetRow
+
+/** Où en est la vérification d'une fiche. */
+export type ReviewStatus = 'attente' | 'verifie' | 'refuse' | 'suspendu'
+
+export interface Reviewed {
+  status: ReviewStatus
+  status_note: string
+  reviewed_by_phone: string | null
+  reviewed_at: string | null
+  published_at: string | null
+}
+
+/** Produit d'un fournisseur. */
+export interface Product extends SheetRow, Reviewed {
+  partner: string
+  partner_name: string
+  standard: string | null
+  standard_name: string | null
+  price: number | null
+  certification: string
+  certified: boolean
+  brand: string
+  bag_kg: number | null
+}
+
+/** Fournisseur de l'annuaire. */
+export interface Partner extends Reference, Reviewed {
+  categories: string[]
+  kind: string | null
+  phone1: string
+  phone2: string
+  address: string
+  latitude: number | null
+  longitude: number | null
+  zone: string
+  radius_km: number
+  accreditation: string
+  accredited: boolean
+  documents: string
+  visited_at: string | null
+  suggested_by: string | null
+  suggested_by_name: string | null
+  products_count: number
+}
+
+/** Signalement d'un fermier. */
+export interface Report {
+  id: number
+  partner: string
+  partner_name: string
+  partner_status: ReviewStatus
+  product: string | null
+  product_name: string | null
+  farm_name: string | null
+  reason: string
+  note: string
+  created_at: string
+  handled_at: string | null
+  decision: string
 }
 
 export type GlobalConfig = Record<string, unknown> & {

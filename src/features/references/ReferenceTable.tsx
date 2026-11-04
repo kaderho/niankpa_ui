@@ -20,12 +20,16 @@ interface Props<T extends Reference> {
   params?: Record<string, unknown>
   /** Actions propres à une ligne, avant modifier et supprimer. */
   rowActions?: (row: T) => React.ReactNode
+  /** Nom d'une ligne dans le titre du formulaire ; par défaut son nom. */
+  titleOf?: (row: T) => string
+  /** Faux pour une liste qui ne fait que relire (à vérifier…). */
+  canAdd?: boolean
 }
 
 /** Table d'une liste de référence : ajouter, modifier, masquer, rétablir.
  *  Tout ce qui est enregistré repart vers les téléphones à leur synchro. */
 export function ReferenceTable<T extends Reference>(props: Props<T>) {
-  const { resource, noun, columns, fields, defaults, params, rowActions } = props
+  const { resource, noun, columns, fields, defaults, params, rowActions, titleOf, canAdd = true } = props
   const [form] = Form.useForm()
   const { message } = App.useApp()
   const [showDeleted, setShowDeleted] = useState(false)
@@ -65,9 +69,11 @@ export function ReferenceTable<T extends Reference>(props: Props<T>) {
           <Switch size="small" checked={showDeleted} onChange={setShowDeleted} />
           <Typography.Text type="secondary">Afficher les lignes supprimées ({deletedCount})</Typography.Text>
         </Flex>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditing(null)}>
-          Ajouter {noun}
-        </Button>
+        {canAdd && (
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditing(null)}>
+            Ajouter {noun}
+          </Button>
+        )}
       </Flex>
       <Table<T>
         rowKey="id"
@@ -116,7 +122,7 @@ export function ReferenceTable<T extends Reference>(props: Props<T>) {
         ]}
       />
       <Modal
-        title={editing ? `Modifier « ${editing.name} »` : `Ajouter ${noun}`}
+        title={editing ? `Modifier « ${titleOf?.(editing) ?? editing.name} »` : `Ajouter ${noun}`}
         open={editing !== undefined}
         onCancel={() => setEditing(undefined)}
         onOk={form.submit}

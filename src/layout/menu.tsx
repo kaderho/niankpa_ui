@@ -1,6 +1,7 @@
 import {
   AppstoreOutlined,
   BankOutlined,
+  CompassOutlined,
   CreditCardOutlined,
   DashboardOutlined,
   DatabaseOutlined,
@@ -36,6 +37,7 @@ export const MENU: Item[] = [
     label: 'Application',
     children: [
       { key: '/references', icon: <DatabaseOutlined />, label: 'Listes de référence' },
+      { key: '/partners', icon: <CompassOutlined />, label: 'Annuaire' },
       { key: '/config', icon: <SettingOutlined />, label: 'Configuration' },
     ],
   },

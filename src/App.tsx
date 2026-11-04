@@ -16,6 +16,7 @@ const PlansPage = page(() => import('./features/plans/PlansPage'), 'PlansPage')
 const PaymentsPage = page(() => import('./features/payments/PaymentsPage'), 'PaymentsPage')
 const CheckoutsPage = page(() => import('./features/payments/CheckoutsPage'), 'CheckoutsPage')
 const ReferencesPage = page(() => import('./features/references/ReferencesPage'), 'ReferencesPage')
+const PartnersPage = page(() => import('./features/directory/PartnersPage'), 'PartnersPage')
 const ConfigPage = page(() => import('./features/config/ConfigPage'), 'ConfigPage')
 
 export function App() {
@@ -31,6 +32,7 @@ export function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="checkouts" element={<CheckoutsPage />} />
           <Route path="references/:tab?" element={<ReferencesPage />} />
+          <Route path="partners/:tab?" element={<PartnersPage />} />
           <Route path="config" element={<ConfigPage />} />
         </Route>
       </Route>
