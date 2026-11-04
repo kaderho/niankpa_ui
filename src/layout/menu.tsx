@@ -1,0 +1,48 @@
+import {
+  AppstoreOutlined,
+  BankOutlined,
+  CreditCardOutlined,
+  DashboardOutlined,
+  DatabaseOutlined,
+  SettingOutlined,
+  TeamOutlined,
+  WalletOutlined,
+} from '@ant-design/icons'
+import type { MenuProps } from 'antd'
+
+type Item = Required<MenuProps>['items'][number]
+
+export const MENU: Item[] = [
+  { key: '/', icon: <DashboardOutlined />, label: 'Tableau de bord' },
+  {
+    type: 'group',
+    label: 'Clients',
+    children: [
+      { key: '/organizations', icon: <BankOutlined />, label: 'Organisations' },
+      { key: '/accounts', icon: <TeamOutlined />, label: 'Comptes' },
+    ],
+  },
+  {
+    type: 'group',
+    label: 'Abonnements',
+    children: [
+      { key: '/plans', icon: <AppstoreOutlined />, label: 'Plans' },
+      { key: '/payments', icon: <WalletOutlined />, label: 'Paiements' },
+      { key: '/checkouts', icon: <CreditCardOutlined />, label: 'Paiements en ligne' },
+    ],
+  },
+  {
+    type: 'group',
+    label: 'Application',
+    children: [
+      { key: '/references', icon: <DatabaseOutlined />, label: 'Listes de référence' },
+      { key: '/config', icon: <SettingOutlined />, label: 'Configuration' },
+    ],
+  },
+]
+
+/** Entrée du menu à surligner pour une adresse. */
+export function selectedKey(pathname: string) {
+  const first = `/${pathname.split('/')[1] ?? ''}`
+  return first === '/' ? '/' : first
+}
