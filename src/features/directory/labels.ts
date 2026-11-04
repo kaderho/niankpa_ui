@@ -1,4 +1,4 @@
-import type { Category, Choice, Product, Reference } from '../../api/types'
+import type { Category, Choice, PartnerKind, Product, Reference } from '../../api/types'
 import { formatMoney } from '../../shared/format'
 import { useList } from '../../shared/queries'
 
@@ -28,3 +28,13 @@ export function useSpeciesOptions() {
 /** Prix et unité, ou « À demander ». */
 export const priceOf = (product: Product, currency: string) =>
   product.price == null ? 'À demander' : `${formatMoney(product.price, currency)} ${product.unit}`.trim()
+
+/** Précisions des fournisseurs, tenues dans le back-office. */
+export function usePartnerKinds() {
+  const { data = [] } = useList<PartnerKind[]>('partner-kinds')
+  const active = data.filter((k) => !k.deleted_at)
+  return {
+    options: active.map((k) => ({ value: k.id, label: `${k.emoji} ${k.name}`.trim() })),
+    byId: new Map(data.map((k) => [k.id, k])),
+  }
+}

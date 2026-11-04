@@ -23,7 +23,7 @@ export interface Meta {
   medicine_kinds: Choice[]
   feed_phases: Choice[]
   packagings: Choice[]
-  partner_kinds: Choice[]
+  contact_categories: Choice[]
   category_sheets: Choice[]
   review_statuses: Choice[]
   report_reasons: Choice[]
@@ -227,10 +227,17 @@ export interface Product extends SheetRow, Reviewed {
   bag_kg: number | null
 }
 
+/** Précision d'un fournisseur (pharmacie vétérinaire, couvoir…). */
+export interface PartnerKind extends Reference {
+  emoji: string
+  default_category: string | null
+  contact_category: string
+}
+
 /** Fournisseur de l'annuaire. */
 export interface Partner extends Reference, Reviewed {
   categories: string[]
-  kind: string | null
+  precision: string | null
   phone1: string
   phone2: string
   address: string

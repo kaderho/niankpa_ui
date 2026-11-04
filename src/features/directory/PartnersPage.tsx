@@ -5,10 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import type { Partner, ReviewStatus } from '../../api/types'
 import { PageHeader } from '../../shared/PageHeader'
-import { useMeta } from '../../shared/queries'
 import { ReferenceTable } from '../references/ReferenceTable'
 import { CategoriesTab } from './CategoriesTab'
-import { categoryLabel, useCategories } from './labels'
+import { categoryLabel, useCategories, usePartnerKinds } from './labels'
+import { PartnerKindsTab } from './PartnerKindsTab'
 import { ProductsDrawer } from './products/ProductsDrawer'
 import { ProductsPendingTab } from './ProductsPendingTab'
 import { ReportsTab } from './ReportsTab'
@@ -16,12 +16,14 @@ import { ReviewActions, ReviewTag } from './review/ReviewActions'
 
 /** Fournisseurs à un stade de la vérification. */
 function PartnersTable({ status }: { status: ReviewStatus }) {
-  const { data: meta } = useMeta()
+  const kinds = usePartnerKinds()
   const [shop, setShop] = useState<Partner | null>(null)
   const params = useMemo(() => ({ status }), [status])
   const categories = useCategories()
-  const kindLabel = (value: string | null) =>
-    value ? (meta?.partner_kinds.find((k) => k.value === value)?.label ?? value) : '—'
+  const kindLabel = (id: string | null) => {
+    const kind = id ? kinds.byId.get(id) : undefined
+    return kind ? `${kind.emoji} ${kind.name}`.trim() : '—'
+  }
 
   return (
     <>
@@ -38,7 +40,7 @@ function PartnersTable({ status }: { status: ReviewStatus }) {
             dataIndex: 'categories',
             render: (ids: string[]) => ids.map((id) => <Tag key={id}>{categoryLabel(categories.byId.get(id))}</Tag>),
           },
-          { title: 'Précision', dataIndex: 'kind', render: kindLabel },
+          { title: 'Précision', dataIndex: 'precision', render: kindLabel },
           { title: 'Téléphone', dataIndex: 'phone1' },
           { title: 'Produits', dataIndex: 'products_count', align: 'right', width: 90 },
           {
@@ -74,8 +76,9 @@ function PartnersTable({ status }: { status: ReviewStatus }) {
               extra="Il peut en avoir plusieurs ; celles de ses produits s'ajoutent d'elles-mêmes.">
               <Select mode="multiple" allowClear options={categories.options} />
             </Form.Item>
-            <Form.Item name="kind" label="Précision" extra="Fabricant, pharmacie, vétérinaire, couvoir : facultatif.">
-              <Select allowClear options={meta?.partner_kinds} />
+            <Form.Item name="precision" label="Précision"
+              extra="Facultatif ; les précisions se gèrent dans l'onglet du même nom.">
+              <Select allowClear options={kinds.options} />
             </Form.Item>
             <Space>
               <Form.Item name="phone1" label="Téléphone 1">
@@ -136,6 +139,7 @@ const TABS = [
   { key: 'products', label: 'Produits à vérifier', children: <ProductsPendingTab /> },
   { key: 'reports', label: 'Signalements', children: <ReportsTab /> },
   { key: 'categories', label: 'Catégories', children: <CategoriesTab /> },
+  { key: 'kinds', label: 'Précisions', children: <PartnerKindsTab /> },
 ]
 
 /** Annuaire et marché : les fournisseurs et leurs produits, vérifiés par les
