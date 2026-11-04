@@ -297,3 +297,28 @@ export interface RolesPayload {
   catalogue: PermissionEntry[]
   roles: Role[]
 }
+
+/** Forfait d'un vétérinaire : places payées, une par ferme suivie. */
+export interface VetSubscription {
+  id: number
+  phone: string
+  status: 'trial' | 'active' | 'expired'
+  /** Fermes suivies en ce moment. */
+  farms: number
+  /** Fermes qu'il peut suivre : celles de l'essai, ou ses places payées. */
+  allowed: number
+  seats: number
+  trial_ends_at: string | null
+  paid_until: string | null
+  note: string
+}
+
+export interface VetPayment {
+  id: number
+  seats: number
+  months: number
+  amount: number
+  method: string
+  reference: string
+  paid_at: string
+}

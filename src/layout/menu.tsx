@@ -5,6 +5,7 @@ import {
   CreditCardOutlined,
   DashboardOutlined,
   DatabaseOutlined,
+  MedicineBoxOutlined,
   SafetyOutlined,
   SettingOutlined,
   TeamOutlined,
@@ -31,6 +32,7 @@ export const MENU: Item[] = [
       { key: '/plans', icon: <AppstoreOutlined />, label: 'Plans' },
       { key: '/payments', icon: <WalletOutlined />, label: 'Paiements' },
       { key: '/checkouts', icon: <CreditCardOutlined />, label: 'Paiements en ligne' },
+      { key: '/vets', icon: <MedicineBoxOutlined />, label: 'Vétérinaires' },
     ],
   },
   {

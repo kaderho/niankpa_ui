@@ -33,6 +33,23 @@ export function SaasSection() {
           </Form.Item>
         </Col>
       </Row>
+      <Row gutter={24}>
+        <Col xs={24} md={8}>
+          <Form.Item name="vet_trial_days" label="Jours d'essai du vétérinaire">
+            <InputNumber min={0} style={{ width: '100%' }} />
+          </Form.Item>
+        </Col>
+        <Col xs={24} md={8}>
+          <Form.Item name="vet_trial_farms" label="Fermes pendant son essai">
+            <InputNumber min={0} style={{ width: '100%' }} />
+          </Form.Item>
+        </Col>
+        <Col xs={24} md={8}>
+          <Form.Item name="vet_farm_price" label="Prix d'une place (ferme / mois)">
+            <InputNumber min={0} style={{ width: '100%' }} />
+          </Form.Item>
+        </Col>
+      </Row>
       <Form.Item name="payment_instructions" label="Comment payer" extra="Affiché dans l'application.">
         <Input.TextArea rows={4} />
       </Form.Item>
