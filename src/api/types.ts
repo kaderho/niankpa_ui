@@ -23,7 +23,6 @@ export interface Meta {
   medicine_kinds: Choice[]
   feed_phases: Choice[]
   packagings: Choice[]
-  contact_categories: Choice[]
   category_sheets: Choice[]
   review_statuses: Choice[]
   report_reasons: Choice[]
@@ -231,7 +230,6 @@ export interface Product extends SheetRow, Reviewed {
 export interface PartnerKind extends Reference {
   emoji: string
   default_category: string | null
-  contact_category: string
 }
 
 /** Fournisseur de l'annuaire. */
