@@ -120,9 +120,15 @@ function PartnersTable({ status }: { status: ReviewStatus }) {
               extra="Registre de commerce, identité du responsable… Jamais envoyé aux fermes.">
               <Input.TextArea rows={2} />
             </Form.Item>
-            <Form.Item name="visited_at" label="Visité le">
-              <Input type="date" style={{ width: 180 }} />
-            </Form.Item>
+            <Space align="start">
+              <Form.Item name="visited_at" label="Visité le">
+                <Input type="date" style={{ width: 180 }} />
+              </Form.Item>
+              <Form.Item name="listed_until" label="Forfait jusqu'au"
+                extra="Passé ce jour, les fermes ne le voient plus. Vide : sans fin.">
+                <Input type="date" style={{ width: 180 }} />
+              </Form.Item>
+            </Space>
           </>
         }
       />

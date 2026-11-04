@@ -247,6 +247,8 @@ export interface Partner extends Reference, Reviewed {
   accredited: boolean
   documents: string
   visited_at: string | null
+  /** Fin du forfait hors plateforme ; vide = sans fin. */
+  listed_until: string | null
   suggested_by: string | null
   suggested_by_name: string | null
   products_count: number
@@ -272,4 +274,26 @@ export type GlobalConfig = Record<string, unknown> & {
   currency: string
   updated_at: string
   secrets_set: Record<string, boolean>
+}
+
+/** Permission que les rôles se partagent, rangée par rubrique. */
+export interface PermissionEntry {
+  perm: string
+  rubric: string
+  label: string
+}
+
+/** Rôle d'une personne (propriétaire, fermier, agent…) et ses permissions. */
+export interface Role {
+  key: string
+  label: string
+  permissions: string[]
+  defaults: string[]
+  /** Permissions imposées : toujours données (true) ou jamais (false). */
+  locked: Record<string, boolean>
+}
+
+export interface RolesPayload {
+  catalogue: PermissionEntry[]
+  roles: Role[]
 }

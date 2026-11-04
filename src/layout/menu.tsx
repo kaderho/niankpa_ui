@@ -5,6 +5,7 @@ import {
   CreditCardOutlined,
   DashboardOutlined,
   DatabaseOutlined,
+  SafetyOutlined,
   SettingOutlined,
   TeamOutlined,
   WalletOutlined,
@@ -38,6 +39,7 @@ export const MENU: Item[] = [
     children: [
       { key: '/references', icon: <DatabaseOutlined />, label: 'Listes de référence' },
       { key: '/partners', icon: <CompassOutlined />, label: 'Annuaire' },
+      { key: '/roles', icon: <SafetyOutlined />, label: 'Rôles et permissions' },
       { key: '/config', icon: <SettingOutlined />, label: 'Configuration' },
     ],
   },
