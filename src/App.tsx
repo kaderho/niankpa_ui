@@ -18,6 +18,7 @@ const PaymentsPage = page(() => import('./features/payments/PaymentsPage'), 'Pay
 const CheckoutsPage = page(() => import('./features/payments/CheckoutsPage'), 'CheckoutsPage')
 const ReferencesPage = page(() => import('./features/references/ReferencesPage'), 'ReferencesPage')
 const PartnersPage = page(() => import('./features/directory/PartnersPage'), 'PartnersPage')
+const SuppliersPage = page(() => import('./features/directory/SuppliersPage'), 'SuppliersPage')
 const VetsPage = page(() => import('./features/vets/VetsPage'), 'VetsPage')
 const RolesPage = page(() => import('./features/roles/RolesPage'), 'RolesPage')
 const ConfigPage = page(() => import('./features/config/ConfigPage'), 'ConfigPage')
@@ -37,6 +38,7 @@ export function App() {
           <Route path="checkouts" element={<CheckoutsPage />} />
           <Route path="vets" element={<VetsPage />} />
           <Route path="references/:tab?" element={<ReferencesPage />} />
+          <Route path="suppliers/:tab?" element={<SuppliersPage />} />
           <Route path="partners/:tab?" element={<PartnersPage />} />
           <Route path="roles/:tab?" element={<RolesPage />} />
           <Route path="config" element={<ConfigPage />} />
