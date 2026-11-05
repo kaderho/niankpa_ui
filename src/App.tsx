@@ -17,6 +17,7 @@ const PlansPage = page(() => import('./features/plans/PlansPage'), 'PlansPage')
 const PaymentsPage = page(() => import('./features/payments/PaymentsPage'), 'PaymentsPage')
 const CheckoutsPage = page(() => import('./features/payments/CheckoutsPage'), 'CheckoutsPage')
 const ReferencesPage = page(() => import('./features/references/ReferencesPage'), 'ReferencesPage')
+const LocalitiesPage = page(() => import('./features/localities/LocalitiesPage'), 'LocalitiesPage')
 const PartnersPage = page(() => import('./features/directory/PartnersPage'), 'PartnersPage')
 const SuppliersPage = page(() => import('./features/directory/SuppliersPage'), 'SuppliersPage')
 const VetsPage = page(() => import('./features/vets/VetsPage'), 'VetsPage')
@@ -38,6 +39,7 @@ export function App() {
           <Route path="checkouts" element={<CheckoutsPage />} />
           <Route path="vets" element={<VetsPage />} />
           <Route path="references/:tab?" element={<ReferencesPage />} />
+          <Route path="localities" element={<LocalitiesPage />} />
           <Route path="suppliers/:tab?" element={<SuppliersPage />} />
           <Route path="partners/:tab?" element={<PartnersPage />} />
           <Route path="roles/:tab?" element={<RolesPage />} />

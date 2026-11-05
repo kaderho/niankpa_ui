@@ -74,6 +74,10 @@ export interface OrgFarm {
   id: string
   name: string
   locality: string | null
+  place: number | null
+  place_label: string | null
+  latitude: number | null
+  longitude: number | null
   deleted: boolean
   accounts: string[]
 }
@@ -282,6 +286,9 @@ export interface Partner extends Reference, Reviewed {
   address: string
   latitude: number | null
   longitude: number | null
+  /** Localité du référentiel ; la plus proche de la position si vide. */
+  place: number | null
+  place_label: string | null
   zone: string
   radius_km: number
   accreditation: string
@@ -354,6 +361,10 @@ export interface VetSubscription {
   trial_ends_at: string | null
   paid_until: string | null
   note: string
+  latitude: number | null
+  longitude: number | null
+  place: number | null
+  place_label: string | null
 }
 
 export interface VetPayment {
@@ -364,4 +375,27 @@ export interface VetPayment {
   method: string
   reference: string
   paid_at: string
+}
+
+/** Localité de la Côte d'Ivoire (ville, village, quartier). */
+export interface Locality {
+  id: number
+  name: string
+  /** Nom et ce qui le situe : « Bouaké · Vallée du Bandama ». */
+  label: string
+  district: string
+  region: string
+  department: string
+  latitude: number | null
+  longitude: number | null
+  population: number
+  geonames_id: number | null
+}
+
+/** Résultat d'un import de localités. */
+export interface LocalityImport {
+  created: number
+  updated: number
+  /** Fermes, fournisseurs et vétérinaires rattachés ensuite. */
+  linked: number
 }

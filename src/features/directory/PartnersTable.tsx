@@ -3,6 +3,7 @@ import { Button, Form, Input, InputNumber, Select, Space, Switch, Tag, Tooltip }
 import { useMemo, useState } from 'react'
 
 import type { Partner, ReviewStatus } from '../../api/types'
+import { LocalitySelect } from '../../shared/LocalitySelect'
 import { ReferenceTable } from '../references/ReferenceTable'
 import { categoryLabel, useCategories, usePartnerKinds } from './labels'
 import { ProductsDrawer } from './products/ProductsDrawer'
@@ -37,6 +38,7 @@ export function PartnersTable({ status }: { status: ReviewStatus }) {
           },
           { title: 'Précision', dataIndex: 'precision', render: kindLabel },
           { title: 'Téléphone', dataIndex: 'phone1' },
+          { title: 'Localité', dataIndex: 'place_label', render: (v: string | null) => v ?? '—' },
           { title: 'Produits', dataIndex: 'products_count', align: 'right', width: 90 },
           {
             title: 'Vérification',
@@ -88,6 +90,14 @@ export function PartnersTable({ status }: { status: ReviewStatus }) {
             </Space>
             <Form.Item name="address" label="Adresse">
               <Input />
+            </Form.Item>
+            <Form.Item noStyle shouldUpdate={(a, b) => a.place_label !== b.place_label}>
+              {(form) => (
+                <Form.Item name="place" label="Localité"
+                  extra="Vide : la plus proche de la position ci-dessous, à l'enregistrement.">
+                  <LocalitySelect label={form.getFieldValue('place_label')} />
+                </Form.Item>
+              )}
             </Form.Item>
             <Space>
               <Form.Item name="latitude" label="Latitude" extra="Pour « le plus proche de ma ferme ».">

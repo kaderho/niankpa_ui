@@ -1,6 +1,6 @@
-import { WalletOutlined } from '@ant-design/icons'
+import { EnvironmentOutlined, WalletOutlined } from '@ant-design/icons'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Button, Card, Table, Tag, Typography } from 'antd'
+import { Button, Card, Space, Table, Tag, Typography } from 'antd'
 import { useCallback, useState } from 'react'
 
 import { api } from '../../api/client'
@@ -11,6 +11,7 @@ import { useCurrency, useList } from '../../shared/queries'
 import { SearchBar } from '../../shared/SearchBar'
 import { StatusTag } from '../../shared/StatusTag'
 import { VetPayModal } from './VetPayModal'
+import { VetPlaceModal } from './VetPlaceModal'
 
 /** Paiements d'un vétérinaire, sous sa ligne. */
 function Payments({ vet, currency }: { vet: VetSubscription; currency: string }) {
@@ -50,6 +51,7 @@ export function VetsPage() {
   const [params, setParams] = useState<Record<string, unknown>>({ page: 1, page_size: 20 })
   const { data, isFetching } = useList<Page<VetSubscription>>('vets', params)
   const [paying, setPaying] = useState<VetSubscription | null>(null)
+  const [placing, setPlacing] = useState<VetSubscription | null>(null)
   const onSearch = useCallback((search: string) => setParams((p) => ({ ...p, search, page: 1 })), [])
 
   return (
@@ -73,6 +75,7 @@ export function VetsPage() {
           }}
           columns={[
             { title: 'Numéro', dataIndex: 'phone' },
+            { title: 'Localité', dataIndex: 'place_label', render: (v: string | null) => v ?? '—' },
             { title: 'État', dataIndex: 'status', render: (status) => <StatusTag status={status} /> },
             {
               title: 'Fermes suivies',
@@ -90,9 +93,14 @@ export function VetsPage() {
               key: 'pay',
               align: 'right',
               render: (_, vet) => (
-                <Button icon={<WalletOutlined />} onClick={() => setPaying(vet)}>
-                  Paiement
-                </Button>
+                <Space>
+                  <Button icon={<EnvironmentOutlined />} onClick={() => setPlacing(vet)}>
+                    Localité
+                  </Button>
+                  <Button icon={<WalletOutlined />} onClick={() => setPaying(vet)}>
+                    Paiement
+                  </Button>
+                </Space>
               ),
             },
           ]}
@@ -101,6 +109,7 @@ export function VetsPage() {
           Le vétérinaire ne rejoint pas plus de fermes que de places ; son forfait échu, sa synchro s'arrête.
         </Typography.Text>
       </Card>
+      <VetPlaceModal vet={placing} onClose={() => setPlacing(null)} />
       <VetPayModal
         vet={paying}
         price={price}
