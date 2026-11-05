@@ -259,6 +259,8 @@ export interface Product extends SheetRow, Reviewed {
   standard: string | null
   standard_name: string | null
   price: number | null
+  /** Quantité disponible, dans l'unité du produit ; null = non renseignée. */
+  stock_quantity: number | null
   certification: string
   certified: boolean
   brand: string

@@ -47,6 +47,10 @@ export function SheetFields({ forProduct = false, currency = 'FCFA' }: Props) {
               <Input placeholder="sac de 50 kg, flacon de 1000 doses…" />
             </Form.Item>
           </Space>
+          <Form.Item name="stock_quantity" label="Quantité disponible"
+            extra="Dans l'unité du produit. Vide : non renseignée. Le fournisseur la tiendra à jour.">
+            <InputNumber min={0} style={{ width: 160 }} />
+          </Form.Item>
           <Space>
             <Form.Item name="certification" label="Certification"
               extra="Autorisation de mise sur le marché, label…">

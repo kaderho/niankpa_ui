@@ -27,6 +27,7 @@ export function ProductsDrawer({ partner, onClose }: { partner: Partner | null; 
             { title: 'Catégorie', dataIndex: 'category', render: (id: string) => categoryLabel(categories.byId.get(id)) },
             { title: 'Standard', dataIndex: 'standard_name', render: (v: string | null) => v ?? '—' },
             { title: 'Prix', align: 'right', render: (_, row) => priceOf(row, currency) },
+            { title: 'Disponible', dataIndex: 'stock_quantity', align: 'right', render: (v: number | null) => v ?? '—' },
             {
               title: 'Vérification',
               render: (_, row) => (
