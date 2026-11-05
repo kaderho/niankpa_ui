@@ -1,13 +1,14 @@
 import { Form, Input, InputNumber } from 'antd'
 
 import type { Reference } from '../../api/types'
+import { Pictogram, PictogramSelect } from '../../shared/PictogramSelect'
 import { ReferenceTable } from './ReferenceTable'
 
 const nameColumn = {
   title: 'Nom',
   render: (_: unknown, row: Reference) => (
     <span>
-      <span style={{ fontSize: 18, marginRight: 8 }}>{String(row.emoji ?? '')}</span>
+      <Pictogram value={String(row.emoji ?? '')} />
       {row.name}
     </span>
   ),
@@ -19,8 +20,8 @@ const commonFields = (
     <Form.Item name="name" label="Nom" rules={[{ required: true }]}>
       <Input />
     </Form.Item>
-    <Form.Item name="emoji" label="Emoji" rules={[{ required: true }]}>
-      <Input style={{ width: 120 }} maxLength={16} />
+    <Form.Item name="emoji" label="Pictogramme" rules={[{ required: true }]}>
+      <PictogramSelect />
     </Form.Item>
   </>
 )

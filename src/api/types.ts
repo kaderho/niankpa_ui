@@ -26,6 +26,8 @@ export interface Meta {
   category_sheets: Choice[]
   review_statuses: Choice[]
   report_reasons: Choice[]
+  /** Clés des pictogrammes et leur emoji, pour l'aperçu. */
+  pictograms: { key: string; emoji: string }[]
 }
 
 export interface StaffUser {

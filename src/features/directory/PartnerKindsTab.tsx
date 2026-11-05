@@ -1,6 +1,8 @@
 import { Form, Input, InputNumber, Select } from 'antd'
 
 import type { PartnerKind } from '../../api/types'
+import { PictogramSelect } from '../../shared/PictogramSelect'
+import { picto, usePictograms } from '../../shared/pictograms'
 import { ReferenceTable } from '../references/ReferenceTable'
 import { categoryLabel, useCategories } from './labels'
 
@@ -9,6 +11,7 @@ import { categoryLabel, useCategories } from './labels'
  *  chacune donne sa catégorie à un nouveau fournisseur. */
 export function PartnerKindsTab() {
   const categories = useCategories()
+  usePictograms()
   return (
     <ReferenceTable<PartnerKind>
       resource="partner-kinds"
@@ -16,7 +19,7 @@ export function PartnerKindsTab() {
       columns={[
         {
           title: 'Nom',
-          render: (_, row) => `${row.emoji} ${row.name}`.trim(),
+          render: (_, row) => `${picto(row.emoji)} ${row.name}`.trim(),
         },
         {
           title: 'Catégorie par défaut',
@@ -30,8 +33,8 @@ export function PartnerKindsTab() {
           <Form.Item name="name" label="Nom" rules={[{ required: true }]}>
             <Input placeholder="Transporteur, provenderie, abattoir…" />
           </Form.Item>
-          <Form.Item name="emoji" label="Emoji">
-            <Input style={{ width: 120 }} maxLength={16} />
+          <Form.Item name="emoji" label="Pictogramme">
+            <PictogramSelect />
           </Form.Item>
           <Form.Item name="default_category" label="Catégorie par défaut"
             extra="Celle que prend un nouveau fournisseur de cette précision.">

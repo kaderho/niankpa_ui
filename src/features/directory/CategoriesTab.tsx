@@ -2,6 +2,7 @@ import { ColorPicker, Form, Input, InputNumber, Select, Switch, Tag } from 'antd
 import type { Color } from 'antd/es/color-picker'
 
 import type { Category } from '../../api/types'
+import { Pictogram, PictogramSelect } from '../../shared/PictogramSelect'
 import { useMeta } from '../../shared/queries'
 import { ReferenceTable } from '../references/ReferenceTable'
 import { labelOf } from './labels'
@@ -20,7 +21,7 @@ export function CategoriesTab() {
           title: 'Nom',
           render: (_, row) => (
             <span>
-              <span style={{ fontSize: 18, marginRight: 8 }}>{row.emoji}</span>
+              <Pictogram value={row.emoji} />
               <span style={{ color: row.color || undefined, fontWeight: 600 }}>{row.name}</span>
             </span>
           ),
@@ -38,8 +39,8 @@ export function CategoriesTab() {
           <Form.Item name="name" label="Nom" rules={[{ required: true }]}>
             <Input placeholder="Emballages, Transport, Services…" />
           </Form.Item>
-          <Form.Item name="emoji" label="Emoji">
-            <Input style={{ width: 120 }} maxLength={16} />
+          <Form.Item name="emoji" label="Pictogramme">
+            <PictogramSelect />
           </Form.Item>
           <Form.Item
             name="color"
