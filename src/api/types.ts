@@ -125,6 +125,19 @@ export interface Account {
   last_login: string | null
 }
 
+/** Employé d'une organisation (agent ou fermier), reconnu à son numéro. */
+export interface Employee {
+  id: number
+  phone: string
+  role: 'agent' | 'fermier'
+  name: string
+  organization: string
+  organization_name: string | null
+  /** Fermes où il a une fiche active ; vide : il est libre. */
+  farms: string[]
+  created_at: string
+}
+
 export interface Stats {
   saas_enabled: boolean
   currency: string

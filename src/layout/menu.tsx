@@ -5,6 +5,7 @@ import {
   CreditCardOutlined,
   DashboardOutlined,
   DatabaseOutlined,
+  IdcardOutlined,
   MedicineBoxOutlined,
   SafetyOutlined,
   SettingOutlined,
@@ -23,6 +24,7 @@ export const MENU: Item[] = [
     children: [
       { key: '/organizations', icon: <BankOutlined />, label: 'Organisations' },
       { key: '/accounts', icon: <TeamOutlined />, label: 'Comptes' },
+      { key: '/employees', icon: <IdcardOutlined />, label: 'Employés' },
     ],
   },
   {
