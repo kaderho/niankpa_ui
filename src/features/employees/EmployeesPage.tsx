@@ -2,6 +2,7 @@ import { Card, Tabs } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { PageHeader } from '../../shared/PageHeader'
+import { DeparturesTab } from './DeparturesTab'
 import { EmployeesTab } from './EmployeesTab'
 
 /** Employés des organisations : agents et fermiers reconnus à leur numéro. */
@@ -18,7 +19,10 @@ export function EmployeesPage() {
         <Tabs
           activeKey={tab}
           onChange={(key) => navigate(`/employees/${key}`)}
-          items={[{ key: 'list', label: 'Employés', children: <EmployeesTab /> }]}
+          items={[
+            { key: 'list', label: 'Employés', children: <EmployeesTab /> },
+            { key: 'departures', label: 'Motifs de départ', children: <DeparturesTab /> },
+          ]}
         />
       </Card>
     </>

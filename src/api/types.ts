@@ -138,6 +138,30 @@ export interface Employee {
   created_at: string
 }
 
+/** Motif de départ d'un employé, attaché à son numéro. */
+export interface Departure {
+  id: number
+  phone: string
+  name: string
+  role: 'agent' | 'fermier'
+  organization: string
+  organization_name: string | null
+  reason: string
+  reason_label: string
+  comment: string
+  has_voice: boolean
+  given_by_phone: string | null
+  given_by_name: string
+  created_at: string
+  expires_at: string
+  reply_text: string
+  has_reply_voice: boolean
+  replied_at: string | null
+  contested_at: string | null
+  hidden_at: string | null
+  hidden_note: string
+}
+
 export interface Stats {
   saas_enabled: boolean
   currency: string
