@@ -249,6 +249,8 @@ export interface Partner extends Reference, Reviewed {
   visited_at: string | null
   /** Fin du forfait hors plateforme ; vide = sans fin. */
   listed_until: string | null
+  /** Fin de la mise en avant payée (annuaire sponsorisé) ; vide = aucune. */
+  featured_until: string | null
   suggested_by: string | null
   suggested_by_name: string | null
   products_count: number
