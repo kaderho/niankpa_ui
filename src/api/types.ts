@@ -386,6 +386,7 @@ export interface Locality {
   district: string
   region: string
   department: string
+  sub_prefecture: string
   latitude: number | null
   longitude: number | null
   population: number

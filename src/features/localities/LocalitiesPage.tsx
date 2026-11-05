@@ -7,6 +7,7 @@ import type { Locality, Page } from '../../api/types'
 import { PageHeader } from '../../shared/PageHeader'
 import { useAction, useList } from '../../shared/queries'
 import { SearchBar } from '../../shared/SearchBar'
+import { DefaultsButton } from './DefaultsButton'
 import { ImportButton } from './ImportButton'
 import { LocalityModal } from './LocalityModal'
 
@@ -29,6 +30,7 @@ export function LocalitiesPage() {
         subtitle="Villes, villages et quartiers de Côte d'Ivoire. Fermes, fournisseurs et vétérinaires sont rattachés à la plus proche de leur position."
         extra={
           <>
+            <DefaultsButton />
             <ImportButton />
             <Button type="primary" icon={<PlusOutlined />} onClick={() => setEditing({})}>
               Ajouter
@@ -37,7 +39,7 @@ export function LocalitiesPage() {
         }
       />
       <Card>
-        <SearchBar placeholder="Nom, district, région, département" onSearch={onSearch}>
+        <SearchBar placeholder="Nom, district, région, département, sous-préfecture" onSearch={onSearch}>
           <Select
             allowClear
             showSearch
@@ -65,6 +67,7 @@ export function LocalitiesPage() {
             { title: 'District', dataIndex: 'district' },
             { title: 'Région', dataIndex: 'region' },
             { title: 'Département', dataIndex: 'department' },
+            { title: 'Sous-préfecture', dataIndex: 'sub_prefecture' },
             {
               title: 'Position',
               render: (_, l) =>
@@ -97,8 +100,9 @@ export function LocalitiesPage() {
           ]}
         />
         <Typography.Text type="secondary">
-          Import : un export GeoNames de la Côte d'Ivoire (CI.zip) ou un CSV avec les colonnes name, district, region,
-          department, latitude, longitude, population.
+          Liste par défaut : GeoNames, contours des sous-préfectures (geoBoundaries, CNTIG) et Wikipédia. Import : un
+          export GeoNames (CI.zip) ou un CSV avec les colonnes name, district, region, department, sub_prefecture,
+          latitude, longitude, population.
         </Typography.Text>
       </Card>
       <LocalityModal locality={editing} onClose={() => setEditing(null)} />

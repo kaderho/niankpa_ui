@@ -55,6 +55,9 @@ export function LocalityModal({ locality, onClose }: Props) {
           <Form.Item name="department" label="Département">
             <Input />
           </Form.Item>
+          <Form.Item name="sub_prefecture" label="Sous-préfecture">
+            <Input />
+          </Form.Item>
         </Space>
         <Space wrap>
           <Form.Item name="latitude" label="Latitude">
