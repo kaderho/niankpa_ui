@@ -1,12 +1,15 @@
-import { Col, Drawer, Form, InputNumber, Row, Select, Tabs, Tag } from 'antd'
+import { DownloadOutlined } from '@ant-design/icons'
+import { Button, Col, Drawer, Flex, Form, InputNumber, Row, Select, Tabs, Tag } from 'antd'
 import { useMemo } from 'react'
 
 import type { Breed, BreedFeedPhase, BreedWeek } from '../../../api/types'
 import { formatNumber } from '../../../shared/format'
-import { useMeta } from '../../../shared/queries'
+import { useList, useMeta } from '../../../shared/queries'
 import { labelOf } from '../../directory/labels'
 import { ReferenceTable } from '../ReferenceTable'
 import { useStandardOptions } from './standardOptions'
+import { CurveChart } from './CurveChart'
+import { downloadWeeks } from './exportWeeks'
 import { ImportWeeksButton } from './ImportWeeksButton'
 
 const number = { style: { width: '100%' } }
@@ -31,9 +34,20 @@ export function BreedDrawer({ breed, onClose }: { breed: Breed | null; onClose: 
 
 function WeeksTable({ breed, params }: { breed: Breed; params: { breed: string } }) {
   const laying = breed.purpose !== 'chair'
+  const { data: weeks = [] } = useList<BreedWeek[]>('breed-weeks', params)
   return (
     <>
-      <ImportWeeksButton breed={breed} />
+      <Flex gap={8} wrap>
+        <ImportWeeksButton breed={breed} />
+        <Button
+          icon={<DownloadOutlined />}
+          disabled={!weeks.some((w) => !w.deleted_at)}
+          onClick={() => downloadWeeks(breed, weeks)}
+        >
+          Exporter en CSV
+        </Button>
+      </Flex>
+      <CurveChart weeks={weeks} />
       <ReferenceTable<BreedWeek>
         resource="breed-weeks"
         noun="une semaine"

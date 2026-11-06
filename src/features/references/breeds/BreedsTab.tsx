@@ -1,4 +1,4 @@
-import { CopyOutlined, LineChartOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, CopyOutlined, LineChartOutlined, WarningOutlined } from '@ant-design/icons'
 import { Button, Popconfirm, Tag, Tooltip } from 'antd'
 import { useState } from 'react'
 
@@ -60,6 +60,20 @@ export function BreedsTab() {
               ),
           },
           { title: 'Semaines', dataIndex: 'weeks_count', align: 'right', width: 90 },
+          {
+            title: 'Simulateur',
+            dataIndex: 'missing',
+            render: (missing: string[]) =>
+              missing.length === 0 ? (
+                <Tag color="green" icon={<CheckCircleOutlined />}>Complète</Tag>
+              ) : (
+                <Tooltip title={<>Il manque :<br />{missing.map((m) => <div key={m}>• {m}</div>)}</>}>
+                  <Tag color="orange" icon={<WarningOutlined />}>
+                    {missing.length} manque{missing.length > 1 ? 's' : ''}
+                  </Tag>
+                </Tooltip>
+              ),
+          },
         ]}
         rowActions={(breed) =>
           !breed.deleted_at && (

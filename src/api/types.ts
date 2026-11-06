@@ -327,6 +327,8 @@ export interface Breed extends Reference {
   sale_price: number | null
   sale_price_at: string | null
   weeks_count: number
+  /** Ce qui manque pour un résultat complet dans le simulateur. */
+  missing: string[]
 }
 
 /** Une semaine de la courbe d'une souche. */

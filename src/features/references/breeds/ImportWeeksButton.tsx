@@ -34,7 +34,7 @@ export function ImportWeeksButton({ breed }: { breed: Breed }) {
 
   return (
     <>
-      <Button icon={<UploadOutlined />} onClick={() => setOpen(true)} style={{ marginBottom: 12 }}>
+      <Button icon={<UploadOutlined />} onClick={() => setOpen(true)}>
         Importer un CSV
       </Button>
       <Modal
