@@ -20,6 +20,7 @@ export function OrganizationsPage() {
     page: 1,
     page_size: 20,
     status: query.get('status') ?? undefined,
+    plan: query.get('plan') ? Number(query.get('plan')) : undefined,
   })
   const { data, isFetching } = useList<Page<Organization>>('organizations', params)
   const onSearch = useCallback((search: string) => setParams((p) => ({ ...p, search, page: 1 })), [])

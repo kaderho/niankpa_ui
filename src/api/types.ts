@@ -1,5 +1,7 @@
 // Données renvoyées par /api/bo/.
 
+import type { PlanUsage } from './dashboard'
+
 export interface Page<T> {
   count: number
   next: string | null
@@ -68,6 +70,8 @@ export interface Organization {
   farms_count: number
   accounts_count: number
   devices_count: number
+  /** Présente dans la fiche seulement, jamais dans la liste. */
+  usage?: PlanUsage
 }
 
 export interface OrgFarm {
@@ -166,27 +170,6 @@ export interface Departure {
   contested_at: string | null
   hidden_at: string | null
   hidden_note: string
-}
-
-export interface Stats {
-  saas_enabled: boolean
-  currency: string
-  organizations: Record<OrgStatus, number>
-  accounts: number
-  farms: number
-  devices_30d: number
-  flocks: number
-  birds: number
-  revenue_30d: number
-  revenue_by_month: { month: string; total: number }[]
-  recent_payments: {
-    id: number
-    organization: string
-    plan: string
-    amount: number
-    method: string
-    paid_at: string
-  }[]
 }
 
 /** Ligne d'une liste de référence (espèces, points de contrôle…). */

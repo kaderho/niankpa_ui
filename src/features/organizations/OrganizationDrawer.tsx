@@ -8,6 +8,7 @@ import { DevicesTab } from './DevicesTab'
 import { FarmsTab } from './FarmsTab'
 import { OrganizationForm } from './OrganizationForm'
 import { OrganizationPayments } from './OrganizationPayments'
+import { PlanUsageCard } from './PlanUsageCard'
 
 /** Fiche d'une organisation, ouverte par-dessus la liste. */
 export function OrganizationDrawer({ id, onClose }: { id?: string; onClose: () => void }) {
@@ -42,7 +43,16 @@ export function OrganizationDrawer({ id, onClose }: { id?: string; onClose: () =
           </Typography.Paragraph>
           <Tabs
             items={[
-              { key: 'info', label: 'Abonnement', children: <OrganizationForm organization={organization} /> },
+              {
+                key: 'info',
+                label: 'Abonnement',
+                children: (
+                  <>
+                    {organization.usage && <PlanUsageCard usage={organization.usage} />}
+                    <OrganizationForm organization={organization} />
+                  </>
+                ),
+              },
               { key: 'payments', label: 'Paiements', children: <OrganizationPayments organization={organization} /> },
               { key: 'farms', label: `Fermes (${organization.farms_count})`, children: <FarmsTab id={organization.id} /> },
               { key: 'devices', label: `Téléphones (${organization.devices_count})`, children: <DevicesTab id={organization.id} /> },
