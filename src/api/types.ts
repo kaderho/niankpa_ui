@@ -30,12 +30,45 @@ export interface Meta {
   report_reasons: Choice[]
   /** Clés des pictogrammes et leur emoji, pour l'aperçu. */
   pictograms: { key: string; emoji: string }[]
+  /** Rubriques du back-office qu'un groupe de l'équipe peut ouvrir. */
+  sections: Section[]
+}
+
+export interface Section {
+  key: string
+  label: string
+  /** Section du menu où la rubrique se range. */
+  menu: string
 }
 
 export interface StaffUser {
   id: number
   phone: string
+  name: string
   is_superuser: boolean
+  /** Clés des rubriques ouvertes à ce compte (toutes pour un super-administrateur). */
+  sections: string[]
+}
+
+/** Membre de l'équipe Nian Kpa. */
+export interface TeamMember {
+  id: number
+  phone: string
+  name: string
+  groups: number[]
+  sections: string[]
+  is_active: boolean
+  is_superuser: boolean
+  date_joined: string
+  last_login: string | null
+}
+
+/** Groupe de l'équipe et les rubriques qu'il ouvre. */
+export interface TeamGroup {
+  id: number
+  name: string
+  sections: string[]
+  members: number
 }
 
 export type OrgStatus = 'trial' | 'active' | 'grace' | 'expired'

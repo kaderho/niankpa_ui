@@ -23,6 +23,7 @@ const SuppliersPage = page(() => import('./features/directory/SuppliersPage'), '
 const VetsPage = page(() => import('./features/vets/VetsPage'), 'VetsPage')
 const RolesPage = page(() => import('./features/roles/RolesPage'), 'RolesPage')
 const ConfigPage = page(() => import('./features/config/ConfigPage'), 'ConfigPage')
+const TeamPage = page(() => import('./features/team/TeamPage'), 'TeamPage')
 
 export function App() {
   return (
@@ -44,6 +45,7 @@ export function App() {
           <Route path="partners/:tab?" element={<PartnersPage />} />
           <Route path="roles/:tab?" element={<RolesPage />} />
           <Route path="config" element={<ConfigPage />} />
+          <Route path="team/:tab?" element={<TeamPage />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
