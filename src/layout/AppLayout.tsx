@@ -1,4 +1,4 @@
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Flex, Grid, Layout, Menu, Result, Skeleton, Typography, theme } from 'antd'
 import { Suspense, useMemo, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
@@ -76,7 +76,11 @@ export function AppLayout() {
             )}
             <Dropdown
               menu={{
-                items: [{ key: 'logout', icon: <LogoutOutlined />, label: 'Se déconnecter', onClick: logout }],
+                items: [
+                  { key: 'me', icon: <SettingOutlined />, label: 'Mon compte', onClick: () => navigate('/me') },
+                  { type: 'divider' },
+                  { key: 'logout', icon: <LogoutOutlined />, label: 'Se déconnecter', onClick: logout },
+                ],
               }}
             >
               <Flex align="center" gap={8} style={{ cursor: 'pointer' }}>

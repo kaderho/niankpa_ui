@@ -24,6 +24,7 @@ const VetsPage = page(() => import('./features/vets/VetsPage'), 'VetsPage')
 const RolesPage = page(() => import('./features/roles/RolesPage'), 'RolesPage')
 const ConfigPage = page(() => import('./features/config/ConfigPage'), 'ConfigPage')
 const TeamPage = page(() => import('./features/team/TeamPage'), 'TeamPage')
+const MyAccountPage = page(() => import('./features/me/MyAccountPage'), 'MyAccountPage')
 
 export function App() {
   return (
@@ -46,6 +47,7 @@ export function App() {
           <Route path="roles/:tab?" element={<RolesPage />} />
           <Route path="config" element={<ConfigPage />} />
           <Route path="team/:tab?" element={<TeamPage />} />
+          <Route path="me" element={<MyAccountPage />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

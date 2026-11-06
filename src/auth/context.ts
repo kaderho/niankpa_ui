@@ -8,6 +8,8 @@ export interface Auth {
   checking: boolean
   login: (phone: string, password: string) => Promise<void>
   logout: () => void
+  /** Remplace le profil affiché, après l'avoir modifié. */
+  setUser: (user: StaffUser) => void
 }
 
 export const AuthContext = createContext<Auth | null>(null)
