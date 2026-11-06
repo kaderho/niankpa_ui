@@ -12,6 +12,36 @@ export interface Page<T> {
 export interface Choice {
   value: string
   label: string
+  /** Listes tenues au back-office : pictogramme et couleur de l'élément. */
+  emoji?: string
+  color?: string
+  /** Masqué, ou pas encore géré par l'application : lisible, pas choisi. */
+  disabled?: boolean
+}
+
+/** Liste de choix tenue au back-office. */
+export interface ChoiceList {
+  key: string
+  label: string
+  /** free : étiquettes ; behaviour : l'application agit selon la clé. */
+  kind: 'free' | 'behaviour'
+  /** Liste libre ouverte : toute clé ajoutée se choisit tout de suite. */
+  open: boolean
+  used_in: string
+}
+
+/** Élément d'une liste de choix. */
+export interface ChoiceItem extends Reference {
+  list_key: string
+  key: string
+  emoji: string
+  color: string
+  min_app_version: string
+  extra: Record<string, unknown>
+  /** Clé d'origine, que le code connaît. */
+  system: boolean
+  /** Le code sait quoi en faire : elle se choisit dans les formulaires. */
+  supported: boolean
 }
 
 export interface Meta {
@@ -28,6 +58,9 @@ export interface Meta {
   category_sheets: Choice[]
   review_statuses: Choice[]
   report_reasons: Choice[]
+  departure_reasons: Choice[]
+  /** Listes de choix tenues au back-office. */
+  choice_lists: ChoiceList[]
   /** Clés des pictogrammes et leur emoji, pour l'aperçu. */
   pictograms: { key: string; emoji: string }[]
   /** Rubriques du back-office qu'un groupe de l'équipe peut ouvrir. */

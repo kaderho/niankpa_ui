@@ -24,23 +24,27 @@ interface Props<T extends Reference> {
   titleOf?: (row: T) => string
   /** Faux pour une liste qui ne fait que relire (à vérifier…). */
   canAdd?: boolean
+  /** Autres requêtes à rafraîchir après une modification (meta…). */
+  invalidate?: string[]
 }
 
 /** Table d'une liste de référence : ajouter, modifier, masquer, rétablir.
  *  Tout ce qui est enregistré repart vers les téléphones à leur synchro. */
 export function ReferenceTable<T extends Reference>(props: Props<T>) {
-  const { resource, noun, columns, fields, defaults, params, rowActions, titleOf, canAdd = true } = props
+  const { resource, noun, columns, fields, defaults, params, rowActions, titleOf, canAdd = true, invalidate } = props
   const [form] = Form.useForm()
   const { message } = App.useApp()
   const [showDeleted, setShowDeleted] = useState(false)
   const [editing, setEditing] = useState<T | null | undefined>(undefined)
   const { data = [], isFetching } = useList<T[]>(resource, params)
-  const save = useSave<T>(resource)
+  const save = useSave<T>(resource, { invalidate })
   const remove = useAction(resource, (id) => api('delete', `/bo/${resource}/${id}/`), {
     success: 'Masqué sur les téléphones.',
+    invalidate,
   })
   const restore = useAction(resource, (id) => api('post', `/bo/${resource}/${id}/restore/`), {
     success: 'Rétabli.',
+    invalidate,
   })
 
   useEffect(() => {
