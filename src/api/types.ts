@@ -409,7 +409,20 @@ export interface Partner extends Reference, Reviewed {
   featured_until: string | null
   suggested_by: string | null
   suggested_by_name: string | null
+  /** Le fournisseur a accepté d'être publié : exigé pour une fiche proposée par une ferme. */
+  consent: boolean
+  consent_at: string | null
   products_count: number
+}
+
+/** Fiche qui ressemble à un fournisseur : doublon probable. */
+export interface PartnerDuplicate {
+  id: string
+  name: string
+  phone1: string
+  status: ReviewStatus
+  place_label: string | null
+  reasons: string[]
 }
 
 /** Signalement d'un fermier. */
@@ -456,10 +469,16 @@ export interface RolesPayload {
   roles: Role[]
 }
 
-/** Forfait d'un vétérinaire : places payées, une par ferme suivie. */
+/** Type de conseiller : il suit les fermes qui l'invitent. */
+export type AdvisorKind = 'veterinaire' | 'technicien'
+
+/** Forfait d'un conseiller (vétérinaire ou technicien) : places payées, une par ferme suivie. */
 export interface VetSubscription {
   id: number
   phone: string
+  kind: AdvisorKind
+  /** Prix d'une place, au tarif de son type de compte. */
+  farm_price: number
   status: 'trial' | 'active' | 'expired'
   /** Fermes suivies en ce moment. */
   farms: number

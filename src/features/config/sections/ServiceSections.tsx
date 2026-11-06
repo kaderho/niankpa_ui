@@ -1,4 +1,4 @@
-import { Alert, Col, Form, Input, InputNumber, Row, Switch } from 'antd'
+import { Alert, Col, Divider, Form, Input, InputNumber, Row, Switch } from 'antd'
 
 import { SecretInput } from '../SecretInput'
 
@@ -33,26 +33,37 @@ export function SaasSection() {
           </Form.Item>
         </Col>
       </Row>
+      <AdvisorOffer prefix="vet" title="Vétérinaire" />
+      <AdvisorOffer prefix="tech" title="Technicien d'élevage" />
+      <Form.Item name="payment_instructions" label="Comment payer" extra="Affiché dans l'application.">
+        <Input.TextArea rows={4} />
+      </Form.Item>
+    </>
+  )
+}
+
+/** Tarif et essai d'un type de conseiller, qui paie une place par ferme suivie. */
+function AdvisorOffer({ prefix, title }: { prefix: 'vet' | 'tech'; title: string }) {
+  return (
+    <>
+      <Divider titlePlacement="start">{title}</Divider>
       <Row gutter={24}>
         <Col xs={24} md={8}>
-          <Form.Item name="vet_trial_days" label="Jours d'essai du vétérinaire">
+          <Form.Item name={`${prefix}_trial_days`} label="Jours d'essai">
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>
         </Col>
         <Col xs={24} md={8}>
-          <Form.Item name="vet_trial_farms" label="Fermes pendant son essai">
+          <Form.Item name={`${prefix}_trial_farms`} label="Fermes pendant l'essai">
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>
         </Col>
         <Col xs={24} md={8}>
-          <Form.Item name="vet_farm_price" label="Prix d'une place (ferme / mois)">
+          <Form.Item name={`${prefix}_farm_price`} label="Prix d'une place (ferme / mois)">
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item name="payment_instructions" label="Comment payer" extra="Affiché dans l'application.">
-        <Input.TextArea rows={4} />
-      </Form.Item>
     </>
   )
 }

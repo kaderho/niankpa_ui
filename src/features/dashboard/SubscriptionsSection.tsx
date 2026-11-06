@@ -18,9 +18,9 @@ interface Props {
   currency: string
 }
 
-/** Abonnements : plans, paiements, paiements en ligne, vétérinaires. */
+/** Abonnements : plans, paiements, paiements en ligne, vétérinaires et techniciens. */
 export function SubscriptionsSection({ clients, subscriptions, currency }: Props) {
-  const { checkouts, vets } = subscriptions
+  const { checkouts, vets, technicians } = subscriptions
   return (
     <>
       <SectionTitle>Abonnements</SectionTitle>
@@ -52,7 +52,7 @@ export function SubscriptionsSection({ clients, subscriptions, currency }: Props
             footer={`${STATUSES.grace.label} : échéance passée, accès encore ouvert. ${clients.ending_soon} échéance(s) dans les 7 jours.`}
           />
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={24} md={12} xl={6}>
           <CountsCard
             title="Plans"
             to="/plans"
@@ -64,7 +64,7 @@ export function SubscriptionsSection({ clients, subscriptions, currency }: Props
             }))}
           />
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={24} md={12} xl={6}>
           <CountsCard
             title="Paiements en ligne"
             to="/checkouts"
@@ -75,7 +75,7 @@ export function SubscriptionsSection({ clients, subscriptions, currency }: Props
             ]}
           />
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={24} md={12} xl={6}>
           <CountsCard
             title="Vétérinaires"
             to="/vets"
@@ -83,6 +83,17 @@ export function SubscriptionsSection({ clients, subscriptions, currency }: Props
               { key: 'active', label: 'Forfait payé', count: vets.active },
               { key: 'trial', label: 'Essai', count: vets.trial },
               { key: 'expired', label: 'Échu', count: vets.expired },
+            ]}
+          />
+        </Col>
+        <Col xs={24} md={12} xl={6}>
+          <CountsCard
+            title="Techniciens"
+            to="/vets"
+            rows={[
+              { key: 'active', label: 'Forfait payé', count: technicians?.active ?? 0 },
+              { key: 'trial', label: 'Essai', count: technicians?.trial ?? 0 },
+              { key: 'expired', label: 'Échu', count: technicians?.expired ?? 0 },
             ]}
           />
         </Col>

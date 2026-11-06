@@ -51,7 +51,7 @@ const GROUPS: Group[] = [
       { key: '/plans', icon: <AppstoreOutlined />, label: 'Plans', section: 'plans' },
       { key: '/payments', icon: <WalletOutlined />, label: 'Paiements', section: 'payments' },
       { key: '/checkouts', icon: <CreditCardOutlined />, label: 'Paiements en ligne', section: 'payments' },
-      { key: '/vets', icon: <MedicineBoxOutlined />, label: 'Vétérinaires', section: 'vets' },
+      { key: '/vets', icon: <MedicineBoxOutlined />, label: 'Vétérinaires et techniciens', section: 'vets' },
     ],
   },
   {

@@ -1,4 +1,4 @@
-import { ShopOutlined } from '@ant-design/icons'
+import { SafetyCertificateOutlined, ShopOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber, Select, Space, Switch, Tag, Tooltip } from 'antd'
 import { useMemo, useState } from 'react'
 
@@ -7,12 +7,14 @@ import { LocalitySelect } from '../../shared/LocalitySelect'
 import { ReferenceTable } from '../references/ReferenceTable'
 import { categoryLabel, useCategories, usePartnerKinds } from './labels'
 import { ProductsDrawer } from './products/ProductsDrawer'
+import { ConsentTag, PartnerCheck } from './review/PartnerCheck'
 import { ReviewActions, ReviewTag } from './review/ReviewActions'
 
 /** Fournisseurs à un stade de la vérification. */
 export function PartnersTable({ status }: { status: ReviewStatus }) {
   const kinds = usePartnerKinds()
   const [shop, setShop] = useState<Partner | null>(null)
+  const [checking, setChecking] = useState<Partner | null>(null)
   const params = useMemo(() => ({ status }), [status])
   const categories = useCategories()
   const today = new Date().toISOString().slice(0, 10)
@@ -45,6 +47,7 @@ export function PartnersTable({ status }: { status: ReviewStatus }) {
             render: (_, row) => (
               <>
                 <ReviewTag row={row} />
+                {row.status === 'attente' && <ConsentTag partner={row} />}
                 {row.accredited && <Tag color="blue">Agréé</Tag>}
                 {row.featured_until && row.featured_until >= today && (
                   <Tag color="gold">Sponsorisé jusqu'au {row.featured_until}</Tag>
@@ -59,6 +62,11 @@ export function PartnersTable({ status }: { status: ReviewStatus }) {
         ]}
         rowActions={(partner) => (
           <>
+            {!partner.deleted_at && partner.status === 'attente' && (
+              <Tooltip title="Accord et doublons">
+                <Button type="text" icon={<SafetyCertificateOutlined />} onClick={() => setChecking(partner)} />
+              </Tooltip>
+            )}
             <ReviewActions resource="partners" row={partner} canSuspend />
             {!partner.deleted_at && (
               <Tooltip title="Ses produits">
@@ -145,6 +153,7 @@ export function PartnersTable({ status }: { status: ReviewStatus }) {
         }
       />
       <ProductsDrawer partner={shop} onClose={() => setShop(null)} />
+      <PartnerCheck partner={checking} onClose={() => setChecking(null)} />
     </>
   )
 }

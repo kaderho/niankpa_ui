@@ -34,6 +34,7 @@ export interface Stats {
     }[]
     checkouts: { pending: number; completed_30d: number; cancelled_30d: number }
     vets: Record<VetStatus, number>
+    technicians: Record<VetStatus, number>
   }
   application: {
     references: {
