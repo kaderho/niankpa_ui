@@ -54,6 +54,9 @@ export interface Meta {
   purposes: Choice[]
   medicine_kinds: Choice[]
   feed_phases: Choice[]
+  breed_types: Choice[]
+  breed_reliabilities: Choice[]
+  sale_units: Choice[]
   packagings: Choice[]
   category_sheets: Choice[]
   review_statuses: Choice[]
@@ -291,8 +294,62 @@ export interface SheetRow extends Reference {
   vaccines: string
 }
 
-/** Standard de la plateforme, sans produit ni prix. */
-export type Standard = SheetRow
+/** Standard de la plateforme, sans produit : seulement un prix indicatif
+ *  pour le simulateur, daté du jour où il a été posé. */
+export interface Standard extends SheetRow {
+  indicative_price: number | null
+  indicative_price_at: string | null
+}
+
+/** Fiche technique d'une souche, pour le simulateur de bande. */
+export interface Breed extends Reference {
+  species: string
+  species_name: string
+  description: string
+  breed_type: string
+  purpose: string
+  reliability: string
+  standard: string | null
+  program: string | null
+  sale_age_min_days: number | null
+  sale_age_days: number | null
+  sale_age_max_days: number | null
+  lay_start_week: number | null
+  lay_peak_week: number | null
+  lay_end_week: number | null
+  mortality_low_percent: number
+  mortality_high_percent: number
+  density_start: number | null
+  density_end: number | null
+  feeders_per_100: number | null
+  drinkers_per_100: number | null
+  sale_unit: string
+  sale_price: number | null
+  sale_price_at: string | null
+  weeks_count: number
+}
+
+/** Une semaine de la courbe d'une souche. */
+export interface BreedWeek extends Reference {
+  breed: string
+  week: number
+  weight_g: number | null
+  weight_min_g: number | null
+  weight_max_g: number | null
+  feed_g_day: number | null
+  water_ml_day: number | null
+  lay_percent: number | null
+  egg_weight_g: number | null
+}
+
+/** Phase du programme alimentaire d'une souche. */
+export interface BreedFeedPhase extends Reference {
+  breed: string
+  phase: string
+  age_from_days: number
+  age_to_days: number
+  standard: string | null
+}
 
 /** Où en est la vérification d'une fiche. */
 export type ReviewStatus = 'attente' | 'verifie' | 'refuse' | 'suspendu'

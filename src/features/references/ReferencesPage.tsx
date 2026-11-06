@@ -2,6 +2,7 @@ import { Card, Tabs } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { PageHeader } from '../../shared/PageHeader'
+import { BreedsTab } from './breeds/BreedsTab'
 import { ProgramsList } from './ProgramsList'
 import { ChoicesTab } from './ChoicesTab'
 import { BiosecurityList, EggCriteriaList, SpeciesList } from './simpleLists'
@@ -13,6 +14,7 @@ const TABS = [
   { key: 'biosecurity', label: 'Biosécurité', children: <BiosecurityList /> },
   { key: 'eggs', label: 'Tri des œufs', children: <EggCriteriaList /> },
   { key: 'standards', label: 'Standards', children: <StandardsTab /> },
+  { key: 'breeds', label: 'Souches', children: <BreedsTab /> },
   { key: 'choices', label: 'Listes de choix', children: <ChoicesTab /> },
 ]
 

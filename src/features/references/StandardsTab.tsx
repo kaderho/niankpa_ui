@@ -1,7 +1,9 @@
-import { Empty, Segmented, Tag } from 'antd'
+import { Empty, Form, InputNumber, Segmented, Tag, Tooltip } from 'antd'
 import { useState } from 'react'
 
 import type { Standard } from '../../api/types'
+import { formatDate, formatMoney } from '../../shared/format'
+import { useCurrency } from '../../shared/queries'
 import { categoryLabel, useCategories } from '../directory/labels'
 import { SheetFields } from '../directory/products/SheetFields'
 import { ReferenceTable } from './ReferenceTable'
@@ -11,6 +13,7 @@ import { ReferenceTable } from './ReferenceTable'
  *  produits qui s'y rattachent. */
 export function StandardsTab() {
   const categories = useCategories()
+  const currency = useCurrency()
   const active = categories.all.filter((c) => !c.deleted_at)
   const [chosen, setChosen] = useState<string>()
   const category = active.find((c) => c.id === chosen) ?? active[0]
@@ -41,9 +44,29 @@ export function StandardsTab() {
             : []),
           ...(category.sheet === 'sujet' ? [{ title: 'Souche', dataIndex: 'strain' }] : []),
           { title: 'Espèces', dataIndex: 'species', render: (ids: string[]) => (ids.length ? ids.length : 'Toutes') },
+          {
+            title: 'Prix indicatif',
+            render: (_, row) =>
+              row.indicative_price == null ? '—' : (
+                <Tooltip title={`Posé le ${formatDate(row.indicative_price_at)}`}>
+                  {formatMoney(row.indicative_price, currency)} {row.unit}
+                </Tooltip>
+              ),
+          },
           { title: 'Ordre', dataIndex: 'position', width: 80, align: 'right' as const },
         ]}
-        fields={<SheetFields />}
+        fields={
+          <>
+            <SheetFields />
+            <Form.Item
+              name="indicative_price"
+              label={`Prix indicatif (${currency}, par unité)`}
+              extra="Pour le simulateur, quand ni la ferme ni les fournisseurs n'en donnent ; le fermier le voit comme un repère qui peut différer du marché."
+            >
+              <InputNumber min={0} step={100} style={{ width: 200 }} />
+            </Form.Item>
+          </>
+        }
       />
     </>
   )
